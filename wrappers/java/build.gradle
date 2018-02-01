@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    // maven { url "https://jitpack.io" }
+}
+apply plugin: 'maven-publish'
+
+ext {
+    groupName = "org.openkinect"
+    appName = "freenect"
+}
+
+version = "0.5.7"
+
+apply plugin: "java"
+
+sourceCompatibility = 1.6
+
+dependencies {
+    compile "net.java.dev.jna:jna:3.2.3"
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        api(MavenPublication) {
+            groupId "org.openkinect"
+            artifactId "freenect"
+            
+            from components.java
+            
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}

@@ -5,3 +5,5 @@ target/
 /freenect.iml
 /freenect.ipr
 /freenect.iws
+/build/
+/.gradle/
